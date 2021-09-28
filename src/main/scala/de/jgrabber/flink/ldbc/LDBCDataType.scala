@@ -16,7 +16,7 @@ object LDBCDataType {
   }
 
   case object Integer32 extends LDBCDataType {
-    override def parse(value: String): Long = value.toInt
+    override def parse(value: String): Int = value.toInt
   }
 
   case object String extends LDBCDataType {

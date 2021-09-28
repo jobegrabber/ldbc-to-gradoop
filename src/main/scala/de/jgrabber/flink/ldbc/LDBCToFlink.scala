@@ -2,10 +2,15 @@ package de.jgrabber.flink.ldbc
 
 import com.typesafe.scalalogging.LazyLogging
 import de.jgrabber.flink.ldbc.LDBCEntity.{LDBCEdge, LDBCVertex}
+import org.apache.flink.api.common.io.LocatableInputSplitAssigner
 import org.apache.flink.api.java.io.RowCsvInputFormat
 import org.apache.flink.api.scala.Hacks.ScalaDataSetWithPublicJavaDataSet
 import org.apache.flink.api.scala.typeutils.Types
-import org.apache.flink.api.scala.{DataSet, ExecutionEnvironment, _}
+import org.apache.flink.api.scala.{
+  DataSet,
+  ExecutionEnvironment,
+  createTypeInformation
+}
 import org.apache.flink.core.fs.{FileSystem, Path}
 import org.apache.flink.types.Row
 import org.gradoop.common.model.impl.properties.{Properties, PropertyValue}
@@ -73,6 +78,14 @@ object LDBCToFlink extends LazyLogging {
 
         inputFormat
           .setSkipFirstLineAsHeader(true)
+
+        //val config = env.getJavaEnv.getConfiguration
+        //inputFormat.setLocatableInputSplitAssignerFactory(splits =>
+        //  new LocatableInputSplitAssigner(
+        //    splits,
+        //    new KubernetesNodeBasedHostLocalityChecker(config)
+        //  )
+        //)
 
         entityConfig -> env.createInput(inputFormat)
       }

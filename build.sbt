@@ -9,6 +9,8 @@ semanticdbEnabled := true
 semanticdbVersion := scalafixSemanticdb.revision
 scalacOptions += "-Ywarn-unused"
 
+resolvers += Resolver.mavenLocal
+
 val flinkVersion = "1.13.2"
 lazy val root = (project in file("."))
   .settings(
